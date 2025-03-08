@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список книг</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Список книг</h1>
+    <ul id="books-list"></ul>
+
+    <script>
+        // Функция для получения данных с API
+        async function fetchBooks() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/book/books');
+                if (!response.ok) {
+                    throw new Error('Ошибка при получении данных');
+                }
+                const books = await response.json();
+                displayBooks(books);
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        }
+
+        // Функция для отображения книг
+        function displayBooks(books) {
+            const booksList = document.getElementById('books-list');
+            booksList.innerHTML = ''; // Очищаем список перед добавлением новых данных
+
+            books.forEach(book => {
+                const li = document.createElement('li');
+                li.textContent = `${book.name}`;
+                booksList.appendChild(li);
+            });
+        }
+
+        // Вызываем функцию для получения книг при загрузке страницы
+        fetchBooks();
+    </script>
+</body>
+</html>
