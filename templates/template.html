@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/style.css') }}">
+    <title>Books</title>
 </head>
 <body>
     <h1>Список книг</h1>
 
     <ul></ul>
 
-    <script src="script.js">
-    </script>
+    <script src="{{ url_for('static', path='scripts/script.js') }}"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 from os.path import splitext
 import aiofiles
 
-from fastapi import APIRouter, Request, UploadFile, Response
+from fastapi import APIRouter, Request, UploadFile
 from fastapi.templating import Jinja2Templates
 
 from database import CreateReadUpdateDelete, check_id
@@ -10,19 +10,19 @@ from schemes import BookScheme, EditBookScheme, DeleteBookScheme
 router = APIRouter()
 crud = CreateReadUpdateDelete()
 
-template = Jinja2Templates(directory="templates")
+jinja_template = Jinja2Templates(directory="templates")
 
 
 @router.get("/")
 async def root(request: Request):
-    return template.TemplateResponse("index.html", {"request": request,
+    return jinja_template.TemplateResponse("index.html", {"request": request,
                                                     "name": "Kirill",
                                                     "list": list(range(1, 6))})
 
 
 @router.get("/book_template")
 async def book_template(request: Request):
-    return template.TemplateResponse("template.html", {"request": request})
+    return jinja_template.TemplateResponse("template.html", {"request": request})
 
 
 @router.get("/books")
